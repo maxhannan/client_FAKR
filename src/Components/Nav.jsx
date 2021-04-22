@@ -19,11 +19,11 @@ import {
 import { Link as RouterLink } from 'react-router-dom';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
+import { myContext } from '../Context';
+import { useContext } from 'react';
+import axios from 'axios';
 
-const Links = [
-  { name: 'Home', link: '/' },
-  { name: 'Login', link: '/login' },
-];
+const Links = [{ name: 'Home', link: '/' }];
 
 const NavLink = ({ children }) => (
   <Link
@@ -43,7 +43,18 @@ const NavLink = ({ children }) => (
 
 export default function Simple() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const userObj = useContext(myContext);
+  if(userObj) console.log(userObj)
+  const logout = () => {
+    axios
+      .get('http://localhost:4000/auth/logout', { withCredentials: true })
+      .then(res => {
+        if (res.data) {
+          console.log(res);
+          window.location.href = '/';
+        }
+      });
+  };
   return (
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
@@ -57,7 +68,9 @@ export default function Simple() {
           />
           <HStack spacing={8} alignItems={'center'}>
             <Box>
-              <Text fontWeight="bold">Fakr</Text>
+              <Text fontWeight="bold">
+                {userObj ? userObj.displayName : 'Fakr'}
+              </Text>
             </Box>
             <HStack
               as={'nav'}
@@ -70,22 +83,26 @@ export default function Simple() {
             </HStack>
           </HStack>
           <Flex alignItems={'center'}>
-            <Menu>
-              <MenuButton
-                as={Button}
-                rounded={'full'}
-                variant={'link'}
-                cursor={'pointer'}
-              >
-                <Avatar size={'sm'} />
-              </MenuButton>
-              <MenuList>
-                <MenuItem>Link 1</MenuItem>
-                <MenuItem>Link 2</MenuItem>
-                <MenuDivider />
-                <MenuItem>Link 3</MenuItem>
-              </MenuList>
-            </Menu>
+            {userObj ? (
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  rounded={'full'}
+                  variant={'link'}
+                  cursor={'pointer'}
+                >
+                  <Avatar size={'sm'} src={userObj.photos} />
+                </MenuButton>
+                <MenuList>
+                  <MenuItem>Link 1</MenuItem>
+                  <MenuItem>Link 2</MenuItem>
+                  <MenuDivider />
+                  <MenuItem onClick={logout}>Logout</MenuItem>
+                </MenuList>
+              </Menu>
+            ) : (
+              <NavLink>{{ name: 'Login', link: '/login' }}</NavLink>
+            )}
             <ColorModeSwitcher />
           </Flex>
         </Flex>
