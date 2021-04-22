@@ -1,5 +1,5 @@
 import { Box, Heading, Container, Text, Button, Stack } from '@chakra-ui/react';
-
+import { Link as RouterLink } from 'react-router-dom';
 export default function Homepage() {
   return (
     <>
@@ -15,15 +15,16 @@ export default function Homepage() {
             fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
             lineHeight={'110%'}
           >
-            Make money from <br />
-            <Text as={'span'} color={'blue.400'}>
-              your audience
+            Fakr <br />
+            <Text as={'span'} fontSize="" color={'blue.400'}>
+              Find your audience
             </Text>
           </Heading>
           <Text color={'gray.500'}>
-            Monetize your content by charging your most loyal readers and reward
-            them loyalty points. Give back to your loyal readers by granting
-            them access to your pre-releases and sneak-peaks.
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum
+            distinctio, esse ipsa quod ratione tempora repudiandae dicta
+            nesciunt molestias recusandae. Ea nesciunt quasi delectus autem
+            atque! Amet corporis quibusdam voluptatibus.
           </Text>
           <Stack
             direction={'column'}
@@ -40,6 +41,8 @@ export default function Homepage() {
               _hover={{
                 bg: 'blue.500',
               }}
+              as={RouterLink}
+              to="/login"
             >
               Get Started
             </Button>
