@@ -41,10 +41,10 @@ const NavLink = ({ children }) => (
   </Link>
 );
 
-export default function Simple() {
+export default function Nav() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const userObj = useContext(myContext);
-  if(userObj) console.log(userObj)
+  if (userObj) console.log(userObj);
   const logout = () => {
     axios
       .get('http://localhost:4000/auth/logout', { withCredentials: true })

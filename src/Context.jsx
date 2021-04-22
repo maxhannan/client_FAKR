@@ -6,7 +6,7 @@ const Context = ({ children }) => {
   const [userObj, setUserObj] = useState();
   useEffect(() => {
     axios
-      .get('http://localhost:4000/getuser', { withCredentials: true })
+      .get('http://localhost:4000/auth/getuser/', { withCredentials: true })
       .then(res => {
         if (res.data) {
           setUserObj(res.data);

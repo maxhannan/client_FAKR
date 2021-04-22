@@ -43,7 +43,12 @@ export default function Login() {
             <Button size="lg" onClick={githubLogin} leftIcon={<FaGithub />}>
               Login with Github
             </Button>
-            <Button size="lg" onClick={twitterLogin} leftIcon={<FaTwitter />}>
+            <Button
+              size="lg"
+              colorScheme="twitter"
+              onClick={twitterLogin}
+              leftIcon={<FaTwitter />}
+            >
               Login with Twitter
             </Button>
           </Stack>
