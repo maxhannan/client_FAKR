@@ -1,36 +1,19 @@
-import { Flex, Text } from '@chakra-ui/layout';
+import { Flex } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/react';
-import { useQuery, gql } from '@apollo/client';
-
+import { useQuery } from '@apollo/client';
+import { FETCH_POSTS_QUERY } from '../util/GQLQueries';
 const Feed = () => {
-  const { loading, error, data } = useQuery(TEST_QUERY);
+  const { loading, error, data: { getPosts: posts } = {} } = useQuery(
+    FETCH_POSTS_QUERY
+  );
 
   if (error) return <p>{error}</p>;
-
+  if (posts) console.log(posts);
   return (
     <Flex height="90vh" align="center" justify="center">
-      {loading ? (
-        <Spinner size="xl" />
-      ) : (
-        <Text fontSize="5xl">
-          {' '}
-          {data ? data.getCurrentUser.username : ''}'s feed
-        </Text>
-      )}
+      {loading ? <Spinner size="xl" /> : <h1>Done</h1>}
     </Flex>
   );
 };
-const TEST_QUERY = gql`
-  query {
-    getCurrentUser {
-      id
-      githubID
-      twitterID
-      displayName
-      photos
-      username
-    }
-  }
-`;
 
 export default Feed;

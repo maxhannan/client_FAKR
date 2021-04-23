@@ -21,7 +21,11 @@ function App() {
         ) : (
           <Route exact path="/login" component={Login} />
         )}
-        {userObj ? <Route exact path="/feed" component={Feed} /> : null}
+        {userObj ? (
+          <Route exact path="/feed" component={Feed} />
+        ) : (
+          <Redirect to="/" />
+        )}
       </Router>
     </ChakraProvider>
   );
