@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import axios from 'axios';
+import FileUploadButton from './FileUploadButton';
 
 export default function Register() {
   const [registerUsername, setRegisterUsername] = useState('');
@@ -22,6 +23,7 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(false);
   const [passwordErrorText, setPasswordErrorText] = useState('');
+  const [fileUrl, setFileUrl] = useState('');
 
   const login = async (username, password) => {
     const resTwo = await axios({
@@ -57,6 +59,7 @@ export default function Register() {
         username: registerUsername,
         password: registerPassword,
         displayName: displayName,
+        photos: fileUrl,
       },
       withCredentials: true,
       url: 'http://localhost:4000/auth/register',
@@ -77,7 +80,7 @@ export default function Register() {
       justify={'center'}
       bg={useColorModeValue('gray.50', 'gray.800')}
     >
-      <Stack spacing={8} mx={'auto'} mt={'6'} maxW={'lg'} py={12} px={6}>
+      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
           <Heading textAlign="center" fontSize={'4xl'}>
             Sign up for an account
@@ -90,6 +93,7 @@ export default function Register() {
           p={6}
         >
           <Stack spacing={4}>
+            <FileUploadButton fileUrl={fileUrl} setFileUrl={setFileUrl} />
             <FormControl isRequired id="username">
               <FormLabel>Username</FormLabel>
               <Input
