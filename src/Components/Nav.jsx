@@ -14,7 +14,7 @@ import {
   useDisclosure,
   useColorModeValue,
   Stack,
-  Text,
+  MenuGroup,
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
@@ -96,8 +96,10 @@ export default function Nav() {
                   <Avatar size={'sm'} src={userObj.photos} />
                 </MenuButton>
                 <MenuList>
-                  <MenuItem>Link 1</MenuItem>
-                  <MenuItem>Link 2</MenuItem>
+                  <MenuGroup title={userObj.displayName}>
+                    <MenuItem>Link 1</MenuItem>
+                    <MenuItem>Link 2</MenuItem>
+                  </MenuGroup>
                   <MenuDivider />
                   <MenuItem onClick={logout}>Logout</MenuItem>
                 </MenuList>

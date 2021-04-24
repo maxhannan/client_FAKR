@@ -6,6 +6,7 @@ import Login from './Components/Login';
 import Nav from './Components/Nav';
 import { myContext } from './Context';
 import Feed from './Components/Feed';
+import Register from './Components/Register';
 function App() {
   const userObj = useContext(myContext);
 
@@ -22,10 +23,11 @@ function App() {
           <Route exact path="/login" component={Login} />
         )}
         {userObj ? (
-          <Route exact path="/feed" component={Feed} />
+          <Redirect to="/feed" />
         ) : (
-          <Redirect to="/" />
+          <Route exact path="/register" component={Register} />
         )}
+        {userObj ? <Route exact path="/feed" component={Feed} /> : null}
       </Router>
     </ChakraProvider>
   );
