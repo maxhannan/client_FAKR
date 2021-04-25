@@ -40,6 +40,7 @@ export default function Register() {
     }
     console.log(resTwo);
   };
+
   const register = async () => {
     if (registerPassword.length < 6) {
       setError(true);

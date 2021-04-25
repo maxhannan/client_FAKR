@@ -7,6 +7,7 @@ export const FETCH_POSTS_QUERY = gql`
       body
       createdAt
       username
+      userPhoto
       likes {
         id
         createdAt

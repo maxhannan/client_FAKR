@@ -20,10 +20,9 @@ import { useState } from 'react';
 import { useForm } from '../util/useForm';
 
 export default function Login() {
-  const [loginUsername, setLoginUsername] = useState();
-  const [loginPassword, setLoginPassword] = useState();
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+
   const githubLogin = () => {
     window.open('http://localhost:4000/auth/github', '_self');
   };
@@ -35,8 +34,8 @@ export default function Login() {
     const res = await axios({
       method: 'POST',
       data: {
-        username: loginUsername,
-        password: loginPassword,
+        username: values.loginUsername,
+        password: values.loginPassword,
       },
       withCredentials: true,
       url: 'http://localhost:4000/auth/login',
@@ -52,6 +51,12 @@ export default function Login() {
       return;
     }
   };
+
+  const { onSubmit, handleChange, values } = useForm(localLogin, {
+    loginUsername: '',
+    loginPassword: '',
+  });
+
   return (
     <Flex
       minH={'92vh'}
@@ -77,8 +82,9 @@ export default function Login() {
             <FormControl isInvalid={error} id="username">
               <FormLabel>Username</FormLabel>
               <Input
-                value={loginUsername}
-                onChange={e => setLoginUsername(e.target.value)}
+                name="loginUsername"
+                value={values.loginUsername}
+                onChange={handleChange}
                 type="text"
               />
               <FormHelperText>{errorMsg}</FormHelperText>
@@ -86,16 +92,13 @@ export default function Login() {
             <FormControl isInvalid={error} id="password">
               <FormLabel>Password</FormLabel>
               <Input
-                value={loginPassword}
-                onChange={e => setLoginPassword(e.target.value)}
+                name="loginPassword"
+                value={values.loginPassword}
+                onChange={handleChange}
                 type="password"
               />
             </FormControl>
-            <Button
-              size="lg"
-              onClick={localLogin}
-              leftIcon={<FaRegUserCircle />}
-            >
+            <Button size="lg" onClick={onSubmit} leftIcon={<FaRegUserCircle />}>
               Login
             </Button>
             <Link
