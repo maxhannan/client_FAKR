@@ -17,6 +17,7 @@ import axios from 'axios';
 import FileUploadButton from '../Components/FileUploadButton';
 import { useForm } from '../util/useForm';
 import { authLogin } from '../util/AuthFunctions';
+import AvatarUpload from '../Components/AvatarUpload';
 
 const RegisterForm = () => {
   const [error, setError] = useState(false);
@@ -98,7 +99,7 @@ const RegisterForm = () => {
           p={6}
         >
           <Stack spacing={4}>
-            <FileUploadButton fileUrl={fileUrl} setFileUrl={setFileUrl} />
+            <AvatarUpload fileUrl={fileUrl} setFileUrl={setFileUrl} />
             <FormControl isRequired id="username">
               <FormLabel>Username</FormLabel>
               <Input

@@ -12,14 +12,22 @@ import {
   ButtonGroup,
   IconButton,
   HStack,
+  Fade,
 } from '@chakra-ui/react';
 import { formatDistance } from 'date-fns';
+import { useEffect, useState } from 'react';
 import { BsHeart } from 'react-icons/bs';
 import { FaRegComments } from 'react-icons/fa';
 
 export default function PostCard({ post }) {
+  const [imageReady, setimageReady] = useState(false);
   return (
-    <Center>
+    <Center
+      style={{
+        opacity: imageReady ? '1' : '0',
+        transition: 'opacity 500ms ease-in',
+      }}
+    >
       <Box
         maxW={'full'}
         w={'full'}
@@ -29,7 +37,11 @@ export default function PostCard({ post }) {
         overflow={'hidden'}
       >
         <Box bg={'gray.100'} mt={-6} mx={-6} mb={6} pos={'relative'}>
-          <Image src={post.photoURL} objectFit="cover" />
+          <Image
+            onLoad={() => setimageReady(true)}
+            src={post.photoURL}
+            objectFit="cover"
+          />
         </Box>
         <Stack>
           <Text

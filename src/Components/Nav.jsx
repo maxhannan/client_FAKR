@@ -86,17 +86,23 @@ export default function Nav() {
               ))}
             </HStack>
           </HStack>
-          <Flex alignItems={'center'} justify="space-between" minW="15%">
-            <Button
-              size="sm"
-              rightIcon={<MdAdd />}
-              colorScheme="blue"
-              variant="outline"
-              as={RouterLink}
-              to="/create"
-            >
-              Add a Post
-            </Button>
+          <Flex
+            alignItems={'center'}
+            justify="space-between"
+            minW={userObj ? '15%' : ''}
+          >
+            {userObj && (
+              <Button
+                size="sm"
+                rightIcon={<MdAdd />}
+                colorScheme="blue"
+                variant="outline"
+                as={RouterLink}
+                to="/create"
+              >
+                Add a Post
+              </Button>
+            )}
             <ColorModeSwitcher />
             {userObj && (
               <Menu>

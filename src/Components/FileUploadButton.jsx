@@ -3,9 +3,13 @@ import { Button } from '@chakra-ui/button';
 import { Flex } from '@chakra-ui/layout';
 import { useRef, useState } from 'react';
 
-import { getImageURl } from '../util/AuthFunctions';
+import { getImageURl } from '../util/FileUpload';
 
-const FileUploadButton = ({ fileUrl, setFileUrl }) => {
+const FileUploadButton = ({
+  setFileUrl,
+  width = '',
+  text = 'Upload Profile Picture',
+}) => {
   const fileInput = useRef(null);
   const [loading, setLoading] = useState(false);
 
@@ -29,12 +33,14 @@ const FileUploadButton = ({ fileUrl, setFileUrl }) => {
         style={{ display: 'none' }}
         multiple={false}
       />
-      <Flex alignItems="center" justifyContent="space-around">
-        <Avatar size="lg" src={fileUrl} />
-        <Button isLoading={loading} onClick={() => fileInput.current.click()}>
-          Upload Profile Picture
-        </Button>
-      </Flex>
+
+      <Button
+        w={width}
+        isLoading={loading}
+        onClick={() => fileInput.current.click()}
+      >
+        {text}
+      </Button>
     </>
   );
 };
