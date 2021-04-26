@@ -30,6 +30,7 @@ const AddPostForm = ({ history }) => {
     liveLink: '',
     repoLink: '',
   });
+
   const [createPost, { error }] = useMutation(CREATE_POST_MUTATION, {
     variables: {
       postType: 'Project Showcase',
