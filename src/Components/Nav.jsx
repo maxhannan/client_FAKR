@@ -16,13 +16,14 @@ import {
   Stack,
   MenuGroup,
 } from '@chakra-ui/react';
+import axios from 'axios';
 import { Link as RouterLink } from 'react-router-dom';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import { myContext } from '../Context';
 import { useContext } from 'react';
-import axios from 'axios';
-
+import { MdAdd } from 'react-icons/md';
+import { FaRegUserCircle, FaCog } from 'react-icons/fa';
 const Links = [
   { name: 'Home', link: '/' },
   { name: 'Login', link: '/login' },
@@ -51,6 +52,7 @@ export default function Nav() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const userObj = useContext(myContext);
   const NavLinkList = userObj ? AuthLinks : Links;
+
   const logout = () => {
     axios
       .get('http://localhost:4000/auth/logout', { withCredentials: true })
@@ -61,6 +63,7 @@ export default function Nav() {
         }
       });
   };
+
   return (
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
@@ -84,7 +87,18 @@ export default function Nav() {
             </HStack>
           </HStack>
           <Flex alignItems={'center'}>
+            <Button
+              size="sm"
+              rightIcon={<MdAdd />}
+              colorScheme="blue"
+              variant="outline"
+              as={RouterLink}
+              to="/create"
+            >
+              Add a Post
+            </Button>
             <ColorModeSwitcher />
+
             {userObj && (
               <Menu>
                 <MenuButton
@@ -97,8 +111,14 @@ export default function Nav() {
                 </MenuButton>
                 <MenuList>
                   <MenuGroup title={userObj.displayName}>
-                    <MenuItem>Link 1</MenuItem>
-                    <MenuItem>Link 2</MenuItem>
+                    <MenuItem
+                      as={RouterLink}
+                      to="/profile"
+                      icon={<FaRegUserCircle />}
+                    >
+                      Profile
+                    </MenuItem>
+                    <MenuItem icon={<FaCog />}>Settings</MenuItem>
                   </MenuGroup>
                   <MenuDivider />
                   <MenuItem onClick={logout}>Logout</MenuItem>

@@ -14,34 +14,28 @@ import {
   Text,
   useColorModeValue,
 } from '@chakra-ui/react';
-import axios from 'axios';
+
 import { useState } from 'react';
 
 import { useForm } from '../util/useForm';
+import { authLogin } from '../util/AuthFunctions';
 
-export default function Login() {
+const LoginForm = () => {
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
   const githubLogin = () => {
     window.open('http://localhost:4000/auth/github', '_self');
   };
+
   const twitterLogin = () => {
     window.open('http://localhost:4000/auth/twitter', '_self');
   };
 
   const localLogin = async () => {
-    const res = await axios({
-      method: 'POST',
-      data: {
-        username: values.loginUsername,
-        password: values.loginPassword,
-      },
-      withCredentials: true,
-      url: 'http://localhost:4000/auth/login',
-    });
+    const res = await authLogin(values.loginUsername, values.loginPassword);
     console.log(res);
-    if (res.data === 'success') {
+    if (res === 'success') {
       setError(false);
       setErrorMsg('');
       window.location = '/feed';
@@ -125,4 +119,6 @@ export default function Login() {
       </Stack>
     </Flex>
   );
-}
+};
+
+export default LoginForm;

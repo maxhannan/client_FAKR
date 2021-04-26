@@ -4,7 +4,12 @@ export const FETCH_POSTS_QUERY = gql`
   query {
     getPosts {
       id
+      postType
+      title
       body
+      liveLink
+      repoLink
+      photoURL
       createdAt
       username
       userPhoto
@@ -13,6 +18,7 @@ export const FETCH_POSTS_QUERY = gql`
         createdAt
         username
       }
+      likeCount
       comments {
         id
         createdAt

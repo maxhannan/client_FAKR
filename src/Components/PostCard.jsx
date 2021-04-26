@@ -1,53 +1,103 @@
+import { ArrowForwardIcon } from '@chakra-ui/icons';
 import {
   Box,
   Center,
   Heading,
   Text,
   Stack,
+  Image,
   Avatar,
   useColorModeValue,
-  Flex,
-  Container,
+  Button,
+  ButtonGroup,
+  IconButton,
+  HStack,
 } from '@chakra-ui/react';
+import { formatDistance } from 'date-fns';
+import { BsHeart } from 'react-icons/bs';
+import { FaRegComments } from 'react-icons/fa';
 
-const PostCard = ({ body, username, userPhoto }) => {
+export default function PostCard({ post }) {
   return (
-    <Container maxW={'6xl'} py={1} px={6}>
+    <Center>
       <Box
+        maxW={'full'}
+        w={'full'}
         bg={useColorModeValue('gray.50', 'gray.900')}
         rounded={'md'}
         p={6}
         overflow={'hidden'}
       >
+        <Box bg={'gray.100'} mt={-6} mx={-6} mb={6} pos={'relative'}>
+          <Image src={post.photoURL} objectFit="cover" />
+        </Box>
         <Stack>
           <Text
-            color={'green.500'}
+            color={'blue.500'}
             textTransform={'uppercase'}
             fontWeight={800}
             fontSize={'sm'}
             letterSpacing={1.1}
           >
-            Blog
+            {post.postType}
           </Text>
           <Heading
             color={useColorModeValue('gray.700', 'white')}
             fontSize={'2xl'}
             fontFamily={'body'}
           >
-            Boost your conversion rate
+            {post.title}
           </Heading>
-          <Text color={'gray.500'}>{body}</Text>
+          <Text color={'gray.500'}>{`${post.body.substring(0, 150)}...`}</Text>
         </Stack>
         <Stack mt={6} direction={'row'} spacing={4} align={'center'}>
-          <Avatar src={userPhoto} alt={username} />
+          <Avatar src={post.userPhoto} alt={'Author'} />
           <Stack direction={'column'} spacing={0} fontSize={'sm'}>
-            <Text fontWeight={600}>{username}</Text>
-            <Text color={'gray.500'}>Feb 08, 2021 · 6min read</Text>
+            <Text fontWeight={600}>{`@${post.username}`}</Text>
+            <Text color={'gray.500'}>
+              {formatDistance(new Date(post.createdAt), new Date(), {
+                addSuffix: true,
+              })}
+            </Text>
           </Stack>
         </Stack>
+        <Stack
+          mt={6}
+          direction={'row'}
+          justify="space-between"
+          align={'center'}
+        >
+          <HStack>
+            <ButtonGroup
+              size="md"
+              colorScheme="blue"
+              isAttached
+              variant="outline"
+            >
+              <IconButton aria-label="Add to friends" icon={<BsHeart />} />
+              <Button mr="-px">{post.likeCount}</Button>
+            </ButtonGroup>
+            <ButtonGroup
+              size="md"
+              colorScheme="blue"
+              isAttached
+              variant="outline"
+            >
+              <IconButton
+                aria-label="Add to friends"
+                icon={<FaRegComments />}
+              />
+              <Button mr="-px">{post.commentCount}</Button>
+            </ButtonGroup>
+          </HStack>
+          <IconButton
+            colorScheme="blue"
+            size="md"
+            aria-label="Add to friends"
+            icon={<ArrowForwardIcon />}
+          />
+        </Stack>
       </Box>
-    </Container>
+    </Center>
   );
-};
-
-export default PostCard;
+}

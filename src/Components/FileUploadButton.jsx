@@ -2,7 +2,8 @@ import { Avatar } from '@chakra-ui/avatar';
 import { Button } from '@chakra-ui/button';
 import { Flex } from '@chakra-ui/layout';
 import { useRef, useState } from 'react';
-import axios from 'axios';
+
+import { getImageURl } from '../util/AuthFunctions';
 
 const FileUploadButton = ({ fileUrl, setFileUrl }) => {
   const fileInput = useRef(null);
@@ -12,22 +13,10 @@ const FileUploadButton = ({ fileUrl, setFileUrl }) => {
     setLoading(true);
     const file = event.target.files[0];
     if (file.name) {
-      const {
-        data: { url },
-      } = await axios.get('http://localhost:4000/s3Url');
-      console.log(url);
-      await fetch(url, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        body: file,
-      });
-      const imageUrl = url.split('?')[0];
-      console.log(imageUrl);
+      const imageUrl = await getImageURl(file);
       await setFileUrl(imageUrl);
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   return (
