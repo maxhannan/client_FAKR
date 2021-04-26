@@ -7,8 +7,7 @@ import {
 } from '@chakra-ui/form-control';
 import { Image } from '@chakra-ui/image';
 import { Input } from '@chakra-ui/input';
-import { Flex, VStack } from '@chakra-ui/layout';
-import { Select } from '@chakra-ui/select';
+import { VStack } from '@chakra-ui/layout';
 import { Textarea } from '@chakra-ui/textarea';
 import gql from 'graphql-tag';
 import { useState } from 'react';

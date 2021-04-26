@@ -13,8 +13,6 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import axios from 'axios';
-
-import FileUploadButton from '../Components/FileUploadButton';
 import { useForm } from '../util/useForm';
 import { authLogin } from '../util/AuthFunctions';
 import AvatarUpload from '../Components/AvatarUpload';

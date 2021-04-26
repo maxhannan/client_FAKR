@@ -12,10 +12,9 @@ import {
   ButtonGroup,
   IconButton,
   HStack,
-  Fade,
 } from '@chakra-ui/react';
 import { formatDistance } from 'date-fns';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { BsHeart } from 'react-icons/bs';
 import { FaRegComments } from 'react-icons/fa';
 

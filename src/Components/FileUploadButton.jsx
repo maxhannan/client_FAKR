@@ -1,6 +1,4 @@
-import { Avatar } from '@chakra-ui/avatar';
 import { Button } from '@chakra-ui/button';
-import { Flex } from '@chakra-ui/layout';
 import { useRef, useState } from 'react';
 
 import { getImageURl } from '../util/FileUpload';
