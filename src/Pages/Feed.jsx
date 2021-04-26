@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { FETCH_POSTS_QUERY } from '../util/GQLQueries';
 import { Spinner } from '@chakra-ui/react';
-import { Center, SimpleGrid } from '@chakra-ui/layout';
+import { Center } from '@chakra-ui/layout';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 
 import PostCard from '../Components/PostCard';
@@ -25,7 +25,7 @@ const Feed = () => {
   return (
     <ResponsiveMasonry
       style={{ width: '100%' }}
-      columnsCountBreakPoints={{ 350: 1, 850: 2, 1100: 3 }}
+      columnsCountBreakPoints={{ 350: 1, 800: 2, 1100: 3 }}
     >
       <Masonry gutter="20px">
         {posts.map(post => (

@@ -15,7 +15,7 @@ const AddPostForm = () => {
   const [image, setImage] = useState('');
   const testimage = '';
   return (
-    <VStack w="full" maxW="container.sm" mb={14}>
+    <VStack w="full" maxW="container.sm">
       <FormControl id="title">
         <FormLabel>Post Type</FormLabel>
         <Select placeholder="Select option">

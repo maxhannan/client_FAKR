@@ -86,7 +86,7 @@ export default function Nav() {
               ))}
             </HStack>
           </HStack>
-          <Flex alignItems={'center'}>
+          <Flex alignItems={'center'} justify="space-between" minW="15%">
             <Button
               size="sm"
               rightIcon={<MdAdd />}
@@ -98,7 +98,6 @@ export default function Nav() {
               Add a Post
             </Button>
             <ColorModeSwitcher />
-
             {userObj && (
               <Menu>
                 <MenuButton
