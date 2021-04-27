@@ -41,7 +41,7 @@ const LoginForm = () => {
       window.location = '/feed';
     } else {
       setError(true);
-      setErrorMsg(res.data);
+      setErrorMsg(res);
       return;
     }
   };
@@ -81,7 +81,7 @@ const LoginForm = () => {
                 onChange={handleChange}
                 type="text"
               />
-              <FormHelperText>{errorMsg}</FormHelperText>
+              <FormHelperText color="crimson">{errorMsg}</FormHelperText>
             </FormControl>
             <FormControl isInvalid={error} id="password">
               <FormLabel>Password</FormLabel>
@@ -91,6 +91,7 @@ const LoginForm = () => {
                 onChange={handleChange}
                 type="password"
               />
+              <FormHelperText color="crimson">{errorMsg}</FormHelperText>
             </FormControl>
             <Button size="lg" onClick={onSubmit} leftIcon={<FaRegUserCircle />}>
               Login
