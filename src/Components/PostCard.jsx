@@ -14,12 +14,15 @@ import {
   HStack,
 } from '@chakra-ui/react';
 import { formatDistance } from 'date-fns';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { BsHeart } from 'react-icons/bs';
 import { FaRegComments } from 'react-icons/fa';
+import { myContext } from '../Context';
+import LikeButton from './LikeButton';
 
 export default function PostCard({ post }) {
   const [imageReady, setimageReady] = useState(false);
+  const userObj = useContext(myContext);
   return (
     <Center
       style={{
@@ -79,15 +82,7 @@ export default function PostCard({ post }) {
           align={'center'}
         >
           <HStack>
-            <ButtonGroup
-              size="md"
-              colorScheme="blue"
-              isAttached
-              variant="outline"
-            >
-              <IconButton aria-label="Add to friends" icon={<BsHeart />} />
-              <Button mr="-px">{post.likeCount}</Button>
-            </ButtonGroup>
+            <LikeButton user={userObj} post={post} />
             <ButtonGroup
               size="md"
               colorScheme="blue"
