@@ -41,6 +41,7 @@ export default function PostCard({ post }) {
         <Box
           maxW={'full'}
           w={'full'}
+          boxShadow="lg"
           bg={useColorModeValue('gray.50', 'gray.900')}
           rounded={'md'}
           p={6}
@@ -78,6 +79,8 @@ export default function PostCard({ post }) {
             <Avatar src={post.userPhoto} alt={'Author'} />
             <Stack direction={'column'} spacing={0} fontSize={'sm'}>
               <Text
+                as={RouterLink}
+                to={`/profile/${post.username}`}
                 color={'red.500'}
                 fontWeight={600}
                 fontSize="sm"

@@ -1,28 +1,23 @@
 import { useQuery } from '@apollo/client';
 import { Avatar } from '@chakra-ui/avatar';
-import { Button, IconButton } from '@chakra-ui/button';
+import { IconButton } from '@chakra-ui/button';
 import { useColorModeValue } from '@chakra-ui/color-mode';
 import { Image } from '@chakra-ui/image';
 import {
-  Box,
   Center,
   Container,
   Divider,
   Flex,
-  Grid,
-  GridItem,
   Heading,
-  SimpleGrid,
-  Stack,
   Text,
   VStack,
 } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
 import gql from 'graphql-tag';
 import { useContext } from 'react';
-import { FaGithub } from 'react-icons/fa';
 import { TiArrowBackOutline } from 'react-icons/ti';
 import { useParams, Link as RouterLink } from 'react-router-dom';
+import Comments from '../Components/Comments';
 import LikeButton from '../Components/LikeButton';
 import { myContext } from '../Context';
 
@@ -30,6 +25,7 @@ const SinglePostPage = () => {
   const { postId } = useParams();
   const userObj = useContext(myContext);
   const headingColor = useColorModeValue('red.600', 'red.200');
+
   const { loading, error, data: { getPost: post } = {} } = useQuery(
     GET_POST_BY_ID,
     {
@@ -51,7 +47,7 @@ const SinglePostPage = () => {
   if (post) console.log(post);
   return (
     <Container maxW="container.md">
-      <VStack w="full" spacing={2}>
+      <VStack w="full">
         <Flex w="100%" align="center" justify="space-between">
           <Heading color={headingColor} textAlign="left" fontSize="2xl">
             {post.postType}
@@ -84,6 +80,7 @@ const SinglePostPage = () => {
         <Text fontSize="lg" fontFamily="body">
           {post.body}
         </Text>
+        <Comments post={post} />
       </VStack>
     </Container>
   );
@@ -117,6 +114,7 @@ const GET_POST_BY_ID = gql`
         createdAt
         username
         body
+        userPhoto
       }
       commentCount
     }

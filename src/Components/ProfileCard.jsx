@@ -6,7 +6,6 @@ import {
   Text,
   Stack,
   Button,
-  Link,
   Badge,
   useColorModeValue,
 } from '@chakra-ui/react';
@@ -16,7 +15,7 @@ export default function SocialProfileSimple({ username, userPhoto }) {
     <Center>
       <Box
         w={'full'}
-        bg={useColorModeValue('white', 'gray.900')}
+        bg={useColorModeValue('gray.50', 'gray.900')}
         rounded={'lg'}
         p={6}
         textAlign={'center'}

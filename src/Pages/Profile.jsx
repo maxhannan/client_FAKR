@@ -67,6 +67,7 @@ const GET_POSTS_BY_USER = gql`
         id
         createdAt
         username
+        userPhoto
       }
       likeCount
       comments {

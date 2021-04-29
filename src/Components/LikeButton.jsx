@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, ButtonGroup, IconButton } from '@chakra-ui/button';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { useMutation, gql } from '@apollo/client';

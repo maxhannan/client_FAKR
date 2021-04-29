@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { ChakraProvider, Container, theme } from '@chakra-ui/react';
+import { Box, ChakraProvider, Container, theme } from '@chakra-ui/react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { myContext } from './Context';
 
@@ -19,7 +19,8 @@ function App() {
     <ChakraProvider theme={theme}>
       <Router>
         <Nav />
-        <Container centerContent mt={6} mb={14} maxW={'container.xl'}>
+        <Container centerContent mb={14} maxW={'container.xl'}>
+          <Box h="100px" />
           <Route exact path="/">
             {userObj ? <Redirect to="/feed" /> : <Homepage />}
           </Route>
