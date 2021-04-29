@@ -16,6 +16,7 @@ export const FETCH_POSTS_QUERY = gql`
       likes {
         id
         createdAt
+        userPhoto
         username
       }
       likeCount

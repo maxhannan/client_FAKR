@@ -14,8 +14,8 @@ import {
   HStack,
 } from '@chakra-ui/react';
 import { formatDistance } from 'date-fns';
+import { Link as RouterLink } from 'react-router-dom';
 import { useContext, useState } from 'react';
-import { BsHeart } from 'react-icons/bs';
 import { FaRegComments } from 'react-icons/fa';
 import { myContext } from '../Context';
 import LikeButton from './LikeButton';
@@ -27,7 +27,7 @@ export default function PostCard({ post }) {
     <Center
       style={{
         opacity: imageReady ? '1' : '0',
-        transition: 'opacity 500ms ease-in',
+        transition: 'opacity 250ms ease-in',
       }}
     >
       <Box
@@ -47,28 +47,37 @@ export default function PostCard({ post }) {
         </Box>
         <Stack>
           <Text
-            color={'blue.500'}
+            color={'red.500'}
             textTransform={'uppercase'}
             fontWeight={800}
             fontSize={'sm'}
             letterSpacing={1.1}
+            fontFamily={'monospace'}
           >
             {post.postType}
           </Text>
           <Heading
             color={useColorModeValue('gray.700', 'white')}
             fontSize={'2xl'}
-            fontFamily={'body'}
+            fontFamily={'monospace'}
           >
             {post.title}
           </Heading>
-          <Text color={'gray.500'}>{`${post.body.substring(0, 150)}...`}</Text>
+          <Text
+            fontFamily={'monospace'}
+            color={'gray.500'}
+          >{`${post.body.substring(0, 150)}...`}</Text>
         </Stack>
         <Stack mt={6} direction={'row'} spacing={4} align={'center'}>
           <Avatar src={post.userPhoto} alt={'Author'} />
           <Stack direction={'column'} spacing={0} fontSize={'sm'}>
-            <Text fontWeight={600}>{`@${post.username}`}</Text>
-            <Text color={'gray.500'}>
+            <Text
+              color={'red.500'}
+              fontWeight={600}
+              fontSize="md"
+              fontFamily={'monospace'}
+            >{`@${post.username}`}</Text>
+            <Text color={'gray.500'} fontFamily={'monospace'}>
               {formatDistance(new Date(post.createdAt), new Date(), {
                 addSuffix: true,
               })}
@@ -85,7 +94,7 @@ export default function PostCard({ post }) {
             <LikeButton user={userObj} post={post} />
             <ButtonGroup
               size="md"
-              colorScheme="blue"
+              colorScheme="red"
               isAttached
               variant="outline"
             >
@@ -93,11 +102,15 @@ export default function PostCard({ post }) {
                 aria-label="Add to friends"
                 icon={<FaRegComments />}
               />
-              <Button mr="-px">{post.commentCount}</Button>
+              <Button mr="-px" fontFamily={'monospace'}>
+                {post.commentCount}
+              </Button>
             </ButtonGroup>
           </HStack>
           <IconButton
-            colorScheme="blue"
+            as={RouterLink}
+            to={`/post/${post.id}`}
+            colorScheme="red"
             size="md"
             aria-label="Add to friends"
             icon={<ArrowForwardIcon />}

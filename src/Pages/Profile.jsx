@@ -5,16 +5,15 @@ import { Center } from '@chakra-ui/layout';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 
 import PostCard from '../Components/PostCard';
-import { useContext } from 'react';
-import { myContext } from '../Context';
+import { useParams } from 'react-router-dom';
 
 const Profile = () => {
-  const userObj = useContext(myContext);
+  const { username } = useParams();
   const { loading, error, data: { getPostsByUser: posts } = {} } = useQuery(
     GET_POSTS_BY_USER,
     {
       variables: {
-        username: userObj.username,
+        username: username,
       },
     }
   );

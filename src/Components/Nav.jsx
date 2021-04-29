@@ -29,13 +29,18 @@ const Links = [
   { name: 'Login', link: '/login' },
 ];
 
-const AuthLinks = [{ name: 'Feed', link: '/feed' }];
+const AuthLinks = [
+  { name: 'Feed', link: '/feed' },
+  { name: 'Post', link: '/post' },
+];
 
 const NavLink = ({ children, onClose }) => (
   <Link
     px={2}
     py={1}
     rounded={'md'}
+    fontFamily={'monospace'}
+    fontSize="large"
     _hover={{
       textDecoration: 'none',
       bg: useColorModeValue('gray.200', 'gray.700'),
@@ -95,8 +100,9 @@ export default function Nav() {
               <Button
                 size="sm"
                 rightIcon={<MdAdd />}
-                colorScheme="blue"
+                colorScheme="red"
                 variant="outline"
+                fontFamily={'monospace'}
                 as={RouterLink}
                 to="/create"
               >
@@ -114,11 +120,11 @@ export default function Nav() {
                 >
                   <Avatar size={'sm'} src={userObj.photos} />
                 </MenuButton>
-                <MenuList>
+                <MenuList fontSize="lg" fontFamily={'monospace'}>
                   <MenuGroup title={userObj.displayName}>
                     <MenuItem
                       as={RouterLink}
-                      to="/profile"
+                      to={`/profile/${userObj.username}`}
                       icon={<FaRegUserCircle />}
                     >
                       Profile

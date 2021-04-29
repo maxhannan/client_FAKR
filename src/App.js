@@ -10,6 +10,7 @@ import Feed from './Pages/Feed';
 import RegisterForm from './Pages/RegisterForm';
 import AddPostForm from './Pages/AddPostForm';
 import Profile from './Pages/Profile';
+import SinglePostPage from './Pages/SinglePostPage';
 
 function App() {
   const userObj = useContext(myContext);
@@ -39,10 +40,11 @@ function App() {
             <Redirect to="/" />
           )}
           {userObj ? (
-            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/profile/:username" component={Profile} />
           ) : (
             <Redirect to="/" />
           )}
+          <Route exact path="/post/:postId" component={SinglePostPage} />
         </Container>
       </Router>
     </ChakraProvider>
