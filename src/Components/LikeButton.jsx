@@ -10,6 +10,7 @@ const LikeButton = ({ user, post: { id, likeCount, likes } }) => {
   const [liked, setLiked] = useState(false);
 
   useEffect(() => {
+    console.log({ id, likeCount, likes });
     if (user && likes.find(like => like.username === user.username)) {
       setLiked(true);
     } else setLiked(false);
@@ -28,13 +29,12 @@ const LikeButton = ({ user, post: { id, likeCount, likes } }) => {
       />
       {likes.length > 0 ? (
         <Menu>
-          <MenuButton fontFamily={'monospace'} as={Button} mr="-px">
+          <MenuButton as={Button} mr="-px">
             {likeCount}
           </MenuButton>
           <MenuList>
             {likes.map(like => (
               <MenuItem
-                fontFamily={'monospace'}
                 fontSize="md"
                 minH="40px"
                 as={RouterLink}

@@ -60,7 +60,7 @@ const AddPostForm = ({ history }) => {
     createPost();
   }
   return (
-    <VStack w="full" maxW="container.sm">
+    <VStack w="full" spacing="24px" maxW="container.sm">
       <FormControl id="title">
         <FormLabel>Project Title</FormLabel>
         <Input
@@ -101,6 +101,7 @@ const AddPostForm = ({ history }) => {
           placeholder="http://www.yourWebsiteHere.com"
           type="text"
         />
+        <FormHelperText>Give it a catchy name!</FormHelperText>
       </FormControl>
       <FormControl id="repoLink">
         <FormLabel>Github Repo</FormLabel>
@@ -111,8 +112,9 @@ const AddPostForm = ({ history }) => {
           placeholder="http://www.github.com/yourUsername/yourRepo"
           type="text"
         />
+        <FormHelperText>Give it a catchy name!</FormHelperText>
       </FormControl>
-      <Button w="full" onClick={onSubmit} colorScheme="blue">
+      <Button w="full" onClick={onSubmit} colorScheme="red">
         Publish
       </Button>
     </VStack>

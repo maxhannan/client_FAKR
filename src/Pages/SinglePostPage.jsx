@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { Avatar } from '@chakra-ui/avatar';
-import { Button } from '@chakra-ui/button';
+import { Button, IconButton } from '@chakra-ui/button';
 import { useColorModeValue } from '@chakra-ui/color-mode';
 import { Image } from '@chakra-ui/image';
 import {
@@ -19,11 +19,17 @@ import {
 } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
 import gql from 'graphql-tag';
+import { useContext } from 'react';
 import { FaGithub } from 'react-icons/fa';
-import { useParams } from 'react-router-dom';
+import { TiArrowBackOutline } from 'react-icons/ti';
+import { useParams, Link as RouterLink } from 'react-router-dom';
+import LikeButton from '../Components/LikeButton';
+import { myContext } from '../Context';
 
 const SinglePostPage = () => {
   const { postId } = useParams();
+  const userObj = useContext(myContext);
+  const headingColor = useColorModeValue('red.600', 'red.200');
   const { loading, error, data: { getPost: post } = {} } = useQuery(
     GET_POST_BY_ID,
     {
@@ -45,19 +51,36 @@ const SinglePostPage = () => {
   if (post) console.log(post);
   return (
     <Container maxW="container.md">
-      <VStack spacing={4}>
+      <VStack w="full" spacing={2}>
         <Flex w="100%" align="center" justify="space-between">
-          <Heading fontFamily="monospace">{post.title}</Heading>
+          <Heading color={headingColor} textAlign="left" fontSize="2xl">
+            {post.postType}
+          </Heading>
+          <Flex>
+            <LikeButton post={post} user={userObj} />
+            <IconButton
+              ml="2"
+              as={RouterLink}
+              to="/feed"
+              colorScheme="red"
+              size="md"
+              variant="outline"
+              aria-label="Add to friends"
+              icon={<TiArrowBackOutline />}
+            />
+          </Flex>
         </Flex>
-
+        <Flex w="100%" align="center" justify="space-between">
+          <Heading fontSize="5xl">{post.title}</Heading>
+        </Flex>
         <Flex w="100%" justify="flex-start" align="center">
-          <Avatar src={post.userPhoto} mr={4} />
-          <Heading fontFamily="monospace" justify="left" size="md">
-            By: @{post.username}
+          <Avatar size="sm" src={post.userPhoto} mr={4} />
+          <Heading color={headingColor} justify="left" fontSize="md">
+            By: {post.username}
           </Heading>
         </Flex>
         <Divider />
-        <Image src={post.photoURL} />
+        <Image src={post.photoURL} rounded={8} />
         <Text fontSize="lg" fontFamily="body">
           {post.body}
         </Text>
@@ -86,6 +109,7 @@ const GET_POST_BY_ID = gql`
         id
         createdAt
         username
+        userPhoto
       }
       likeCount
       comments {

@@ -6,6 +6,7 @@ import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 
 import PostCard from '../Components/PostCard';
 import { useParams } from 'react-router-dom';
+import SocialProfileSimple from '../Components/ProfileCard';
 
 const Profile = () => {
   const { username } = useParams();
@@ -35,6 +36,10 @@ const Profile = () => {
       columnsCountBreakPoints={{ 350: 1, 850: 2, 1100: 3 }}
     >
       <Masonry gutter="20px">
+        <SocialProfileSimple
+          username={username}
+          userPhoto={posts[0].userPhoto}
+        />
         {posts.map(post => (
           <PostCard key={post.id} post={post} />
         ))}
