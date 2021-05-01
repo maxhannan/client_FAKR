@@ -21,6 +21,8 @@ import { FaRegComments } from 'react-icons/fa';
 import { myContext } from '../Context';
 import LikeButton from './LikeButton';
 
+import DeleteButton from './DeleteButton';
+
 export default function PostCard({ post }) {
   const [imageReady, setimageReady] = useState(false);
   const userObj = useContext(myContext);
@@ -56,17 +58,17 @@ export default function PostCard({ post }) {
           </Box>
           <Stack>
             <Text
-              color={'red.500'}
               textTransform={'uppercase'}
               fontWeight={800}
-              fontSize={'sm'}
+              fontSize={'xs'}
+              fontFamily="heading"
               letterSpacing={1.1}
             >
               {post.postType}
             </Text>
             <Heading
               color={useColorModeValue('gray.700', 'white')}
-              fontSize={'2xl'}
+              fontSize={'xl'}
             >
               {post.title}
             </Heading>
@@ -81,7 +83,6 @@ export default function PostCard({ post }) {
               <Text
                 as={RouterLink}
                 to={`/profile/${post.username}`}
-                color={'red.500'}
                 fontWeight={600}
                 fontSize="sm"
               >{`@${post.username}`}</Text>
@@ -100,12 +101,7 @@ export default function PostCard({ post }) {
           >
             <HStack>
               <LikeButton user={userObj} post={post} />
-              <ButtonGroup
-                size="md"
-                colorScheme="red"
-                isAttached
-                variant="outline"
-              >
+              <ButtonGroup size="md" isAttached variant="outline">
                 <IconButton
                   aria-label="Add to friends"
                   icon={<FaRegComments />}
@@ -113,14 +109,19 @@ export default function PostCard({ post }) {
                 <Button mr="-px">{post.commentCount}</Button>
               </ButtonGroup>
             </HStack>
-            <IconButton
-              as={RouterLink}
-              to={`/post/${post.id}`}
-              colorScheme="red"
-              size="md"
-              aria-label="Add to friends"
-              icon={<ArrowForwardIcon />}
-            />
+            <HStack>
+              {userObj.username === post.username && (
+                <DeleteButton postId={post.id} />
+              )}
+
+              <IconButton
+                as={RouterLink}
+                to={`/post/${post.id}`}
+                size="md"
+                aria-label="Add to friends"
+                icon={<ArrowForwardIcon />}
+              />
+            </HStack>
           </Stack>
         </Box>
       </Center>

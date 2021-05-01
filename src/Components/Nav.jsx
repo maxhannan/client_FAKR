@@ -22,21 +22,24 @@ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import { myContext } from '../Context';
 import { useContext } from 'react';
-import { MdAdd } from 'react-icons/md';
+
 import { FaRegUserCircle, FaCog } from 'react-icons/fa';
 const Links = [
   { name: 'Home', link: '/' },
   { name: 'Login', link: '/login' },
 ];
 
-const AuthLinks = [{ name: 'Feed', link: '/feed' }];
+const AuthLinks = [
+  { name: 'Recent Posts', link: '/feed' },
+  { name: 'Following', link: '/feed' },
+];
 
 const NavLink = ({ children, onClose }) => (
   <Link
     px={2}
     py={1}
     rounded={'md'}
-    fontSize="large"
+    fontSize="md"
     _hover={{
       textDecoration: 'none',
       bg: useColorModeValue('gray.200', 'gray.700'),
@@ -94,23 +97,8 @@ export default function Nav() {
               ))}
             </HStack>
           </HStack>
-          <Flex
-            alignItems={'center'}
-            justify="space-between"
-            minW={userObj ? '15%' : ''}
-          >
-            {userObj && (
-              <Button
-                size="sm"
-                rightIcon={<MdAdd />}
-                colorScheme="red"
-                variant="outline"
-                as={RouterLink}
-                to="/create"
-              >
-                Add a Post
-              </Button>
-            )}
+
+          <HStack>
             <ColorModeSwitcher />
             {userObj && (
               <Menu>
@@ -138,7 +126,7 @@ export default function Nav() {
                 </MenuList>
               </Menu>
             )}
-          </Flex>
+          </HStack>
         </Flex>
 
         {isOpen ? (

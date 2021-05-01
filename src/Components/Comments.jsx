@@ -1,12 +1,12 @@
 import { useMutation } from '@apollo/client';
 import { Button } from '@chakra-ui/button';
 import { FormControl } from '@chakra-ui/form-control';
-import { Divider, Flex, Heading } from '@chakra-ui/layout';
+import { Divider, Flex, Heading, VStack } from '@chakra-ui/layout';
 import { Textarea } from '@chakra-ui/textarea';
-import gql from 'graphql-tag';
 import { useState } from 'react';
 import { FiSend } from 'react-icons/fi';
 import Comment from './Comment';
+import { SUBMIT_COMMENT_MUTATION } from '../util/GQLQueries';
 
 const Comments = ({ post }) => {
   const [comment, setComment] = useState();
@@ -38,37 +38,17 @@ const Comments = ({ post }) => {
         />
       </FormControl>
       <Flex w="100%" align="center" justify="flex-end">
-        <Button
-          onClick={submitComment}
-          w="full"
-          mb={4}
-          rightIcon={<FiSend />}
-          colorScheme="red"
-          variant="outline"
-        >
+        <Button onClick={submitComment} w="full" mb={4} rightIcon={<FiSend />}>
           Comment
         </Button>
       </Flex>
-      {post.comments.map(comment => (
-        <Comment comment={comment} key={comment.id} />
-      ))}
+      <VStack w="full">
+        {post.comments.map(comment => (
+          <Comment comment={comment} key={comment.id} />
+        ))}
+      </VStack>
     </>
   );
 };
 
 export default Comments;
-const SUBMIT_COMMENT_MUTATION = gql`
-  mutation createComment($postId: ID!, $body: String!) {
-    createComment(postId: $postId, body: $body) {
-      id
-      comments {
-        id
-        createdAt
-        username
-        body
-        userPhoto
-      }
-      commentCount
-    }
-  }
-`;

@@ -6,7 +6,9 @@ import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 
 import PostCard from '../Components/PostCard';
 
-const Feed = () => {
+import FAB from '../Components/FAB';
+
+const Feed = ({ history }) => {
   const { loading, error, data: { getPosts: posts } = {} } = useQuery(
     FETCH_POSTS_QUERY
   );
@@ -23,16 +25,19 @@ const Feed = () => {
   if (posts) console.log(posts);
 
   return (
-    <ResponsiveMasonry
-      style={{ width: '100%' }}
-      columnsCountBreakPoints={{ 350: 1, 800: 2, 1100: 3 }}
-    >
-      <Masonry gutter="20px">
-        {posts.map(post => (
-          <PostCard key={post.id} post={post} />
-        ))}
-      </Masonry>
-    </ResponsiveMasonry>
+    <>
+      <ResponsiveMasonry
+        style={{ width: '100%', marginBottom: '80px' }}
+        columnsCountBreakPoints={{ 350: 1, 800: 2, 1100: 3 }}
+      >
+        <Masonry gutter="20px">
+          {posts.map(post => (
+            <PostCard key={post.id} post={post} />
+          ))}
+        </Masonry>
+      </ResponsiveMasonry>
+      <FAB history={history} />
+    </>
   );
 };
 

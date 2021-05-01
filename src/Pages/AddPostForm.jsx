@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { Button } from '@chakra-ui/button';
+import { Button, IconButton } from '@chakra-ui/button';
 import {
   FormControl,
   FormHelperText,
@@ -9,10 +9,11 @@ import { Image } from '@chakra-ui/image';
 import { Input } from '@chakra-ui/input';
 import { VStack } from '@chakra-ui/layout';
 import { Textarea } from '@chakra-ui/textarea';
-import gql from 'graphql-tag';
 import { useState } from 'react';
+import { TiArrowBackOutline } from 'react-icons/ti';
+import { Link as RouterLink } from 'react-router-dom';
 import FileUploadButton from '../Components/FileUploadButton';
-import { FETCH_POSTS_QUERY } from '../util/GQLQueries';
+import { FETCH_POSTS_QUERY, CREATE_POST_MUTATION } from '../util/GQLQueries';
 import { useForm } from '../util/useForm';
 
 const AddPostForm = ({ history }) => {
@@ -60,7 +61,20 @@ const AddPostForm = ({ history }) => {
     createPost();
   }
   return (
-    <VStack w="full" spacing="24px" maxW="container.sm">
+    <VStack
+      w="full"
+      spacing="24px"
+      style={{ animation: 'appearSimple 500ms ease' }}
+      maxW="container.sm"
+    >
+      <IconButton
+        alignSelf="flex-start"
+        as={RouterLink}
+        to="/feed"
+        size="md"
+        aria-label="Add to friends"
+        icon={<TiArrowBackOutline />}
+      />
       <FormControl id="title">
         <FormLabel>Project Title</FormLabel>
         <Input
@@ -122,47 +136,3 @@ const AddPostForm = ({ history }) => {
 };
 
 export default AddPostForm;
-
-const CREATE_POST_MUTATION = gql`
-  mutation createPost(
-    $postType: String!
-    $title: String!
-    $body: String!
-    $liveLink: String!
-    $repoLink: String!
-    $photoURL: String!
-  ) {
-    createPost(
-      postType: $postType
-      title: $title
-      body: $body
-      liveLink: $liveLink
-      repoLink: $repoLink
-      photoURL: $photoURL
-    ) {
-      id
-      postType
-      title
-      body
-      liveLink
-      repoLink
-      photoURL
-      createdAt
-      username
-      userPhoto
-      likes {
-        id
-        createdAt
-        username
-      }
-      likeCount
-      comments {
-        id
-        createdAt
-        username
-        body
-      }
-      commentCount
-    }
-  }
-`;

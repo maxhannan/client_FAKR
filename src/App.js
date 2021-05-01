@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { Box, ChakraProvider, Container, theme } from '@chakra-ui/react';
+import { Box, ChakraProvider, Container } from '@chakra-ui/react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { myContext } from './Context';
-
+import { theme } from './Theme';
 import Homepage from './Pages/Homepage';
 import LoginForm from './Pages/LoginForm';
 import Nav from './Components/Nav';
@@ -11,24 +11,26 @@ import RegisterForm from './Pages/RegisterForm';
 import AddPostForm from './Pages/AddPostForm';
 import Profile from './Pages/Profile';
 import SinglePostPage from './Pages/SinglePostPage';
-
+import ScrollToTop from './Components/ScrollToTop';
 function App() {
   const userObj = useContext(myContext);
 
   return (
     <ChakraProvider theme={theme}>
       <Router>
+        <ScrollToTop />
         <Nav />
+        <Box h="100px" />
+        {userObj ? (
+          <Redirect to="/feed" />
+        ) : (
+          <Route exact path="/login" component={LoginForm} />
+        )}
         <Container centerContent mb={14} maxW={'container.xl'}>
-          <Box h="100px" />
           <Route exact path="/">
             {userObj ? <Redirect to="/feed" /> : <Homepage />}
           </Route>
-          {userObj ? (
-            <Redirect to="/feed" />
-          ) : (
-            <Route exact path="/login" component={LoginForm} />
-          )}
+
           {userObj ? (
             <Redirect to="/feed" />
           ) : (

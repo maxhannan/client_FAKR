@@ -93,7 +93,7 @@ export default function SocialProfileSimple({ username, userPhoto }) {
           >
             Message
           </Button>
-          <Button flex={1} fontSize={'sm'} colorScheme="red">
+          <Button flex={1} fontSize={'sm'}>
             Follow
           </Button>
         </Stack>
