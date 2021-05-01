@@ -34,7 +34,7 @@ const LikeButton = ({ user, post: { id, likeCount, likes } }) => {
               style={{ animation: 'appear 500ms ease' }}
             />
           ) : (
-            <BsHeart style={{ animation: 'appear 500ms ease' }} />
+            <BsHeart style={{ animation: 'disappear 500ms ease' }} />
           )
         }
       />

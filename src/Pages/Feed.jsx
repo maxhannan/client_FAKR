@@ -31,9 +31,10 @@ const Feed = ({ history }) => {
         columnsCountBreakPoints={{ 350: 1, 800: 2, 1100: 3 }}
       >
         <Masonry gutter="20px">
-          {posts.map(post => (
-            <PostCard key={post.id} post={post} />
-          ))}
+          {posts &&
+            posts.map(post => (
+              <PostCard key={post.id} post={post} history={history} />
+            ))}
         </Masonry>
       </ResponsiveMasonry>
       <FAB history={history} />

@@ -1,3 +1,4 @@
+import { gql, useQuery } from '@apollo/client';
 import {
   Heading,
   Avatar,
@@ -10,19 +11,25 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 
-export default function SocialProfileSimple({ username, userPhoto }) {
+export default function SocialProfileSimple({ username }) {
+  const bgColor = useColorModeValue('gray.50', 'gray.900');
+  const textColor = useColorModeValue('gray.700', 'gray.400');
+  const tagColor = useColorModeValue('gray.50', 'gray.800');
+  const { loading, error, data: { getUserByName: user } = {} } = useQuery(
+    GET_USER_BY_NAME,
+    {
+      variables: {
+        username,
+      },
+    }
+  );
+  if (loading) return <h3>loading...</h3>;
   return (
     <Center>
-      <Box
-        w={'full'}
-        bg={useColorModeValue('gray.50', 'gray.900')}
-        rounded={'lg'}
-        p={6}
-        textAlign={'center'}
-      >
+      <Box w={'full'} bg={bgColor} rounded={'lg'} p={6} textAlign={'center'}>
         <Avatar
           size={'xl'}
-          src={userPhoto}
+          src={user.photos}
           alt={'Avatar Alt'}
           mb={4}
           pos={'relative'}
@@ -39,16 +46,12 @@ export default function SocialProfileSimple({ username, userPhoto }) {
           }}
         />
         <Heading fontSize={'2xl'} fontFamily={'body'}>
-          {username}
+          {user.displayName}
         </Heading>
         <Text fontWeight={600} color={'gray.500'} mb={4}>
-          @lindsey_jam3s
+          @{user.username}
         </Text>
-        <Text
-          textAlign={'center'}
-          color={useColorModeValue('gray.700', 'gray.400')}
-          px={3}
-        >
+        <Text textAlign={'center'} color={textColor} px={3}>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae sit
           magnam odio esse id praesentium illum nobis alias unde eaque omnis
           quibusdam voluptate ratione magni itaque quas molestias, ex dolor
@@ -56,28 +59,13 @@ export default function SocialProfileSimple({ username, userPhoto }) {
         </Text>
 
         <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
-          <Badge
-            px={2}
-            py={1}
-            bg={useColorModeValue('gray.50', 'gray.800')}
-            fontWeight={'400'}
-          >
+          <Badge px={2} py={1} bg={tagColor} fontWeight={'400'}>
             #art
           </Badge>
-          <Badge
-            px={2}
-            py={1}
-            bg={useColorModeValue('gray.50', 'gray.800')}
-            fontWeight={'400'}
-          >
+          <Badge px={2} py={1} bg={tagColor} fontWeight={'400'}>
             #photography
           </Badge>
-          <Badge
-            px={2}
-            py={1}
-            bg={useColorModeValue('gray.50', 'gray.800')}
-            fontWeight={'400'}
-          >
+          <Badge px={2} py={1} bg={tagColor} fontWeight={'400'}>
             #music
           </Badge>
         </Stack>
@@ -101,3 +89,14 @@ export default function SocialProfileSimple({ username, userPhoto }) {
     </Center>
   );
 }
+
+const GET_USER_BY_NAME = gql`
+  query getUserByName($username: String!) {
+    getUserByName(username: $username) {
+      id
+      displayName
+      photos
+      username
+    }
+  }
+`;

@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { Avatar } from '@chakra-ui/avatar';
-import { Button, ButtonGroup, IconButton } from '@chakra-ui/button';
+import { Button, IconButton } from '@chakra-ui/button';
 import { Image } from '@chakra-ui/image';
 import {
   Center,
@@ -98,24 +98,27 @@ const SinglePostPage = () => {
             rounded={8}
             onLoad={() => setImageReady(true)}
           />
-          <ButtonGroup w="full" size="sm" isAttached variant="outline">
+          <Flex w="full" flexDirection={{ md: 'row', base: 'column' }}>
             <Button
-              size="lg"
-              w="full"
               onClick={() => navigate(post.repoLink)}
               leftIcon={<FaGithub />}
+              fontSize="md"
+              m={1}
+              w="full"
             >
               Github Repo Link
             </Button>
             <Button
-              size="lg"
+              m={1}
               onClick={() => navigate(post.liveLink)}
-              w="full"
               leftIcon={<CgWebsite />}
+              fontSize="md"
+              colorScheme="red"
+              w="full"
             >
               Live Website Link
             </Button>
-          </ButtonGroup>
+          </Flex>
           <Text fontSize="lg" fontFamily="body">
             {post.body}
           </Text>

@@ -22,8 +22,9 @@ import { myContext } from '../Context';
 import LikeButton from './LikeButton';
 
 import DeleteButton from './DeleteButton';
+import CommentButton from './CommentButton';
 
-export default function PostCard({ post }) {
+export default function PostCard({ history, post }) {
   const [imageReady, setimageReady] = useState(false);
   const userObj = useContext(myContext);
 
@@ -101,19 +102,12 @@ export default function PostCard({ post }) {
           >
             <HStack>
               <LikeButton user={userObj} post={post} />
-              <ButtonGroup size="md" isAttached variant="outline">
-                <IconButton
-                  aria-label="Add to friends"
-                  icon={<FaRegComments />}
-                />
-                <Button mr="-px">{post.commentCount}</Button>
-              </ButtonGroup>
+              <CommentButton history={history} user={userObj} post={post} />
             </HStack>
             <HStack>
               {userObj.username === post.username && (
                 <DeleteButton postId={post.id} />
               )}
-
               <IconButton
                 as={RouterLink}
                 to={`/post/${post.id}`}

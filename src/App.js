@@ -44,9 +44,7 @@ function App() {
           )}
           {userObj ? (
             <Route exact path="/profile/:username" component={Profile} />
-          ) : (
-            <Redirect to="/" />
-          )}
+          ) : null}
           <Route exact path="/post/:postId" component={SinglePostPage} />
         </Container>
       </Router>

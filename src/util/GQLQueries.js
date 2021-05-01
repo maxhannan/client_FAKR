@@ -24,6 +24,7 @@ export const FETCH_POSTS_QUERY = gql`
         id
         createdAt
         username
+        userPhoto
         body
       }
       commentCount
