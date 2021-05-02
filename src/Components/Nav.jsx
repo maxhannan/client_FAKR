@@ -31,7 +31,7 @@ const Links = [
 
 const AuthLinks = [
   { name: 'Recent Posts', link: '/feed' },
-  { name: 'Following', link: '/feed' },
+  { name: 'Following', link: '/following' },
 ];
 
 const NavLink = ({ children, onClose }) => (

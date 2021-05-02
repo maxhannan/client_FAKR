@@ -1,15 +1,14 @@
 import { useQuery } from '@apollo/client';
+import { FETCH_POSTS_QUERY } from '../util/GQLQueries';
 import { Spinner } from '@chakra-ui/react';
 import { Center } from '@chakra-ui/layout';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
-import { FETCH_POSTS_QUERY } from '../util/GQLQueries';
+
 import PostCard from '../Components/PostCard';
-import { useParams } from 'react-router-dom';
-import SocialProfileSimple from '../Components/ProfileCard';
+
 import FAB from '../Components/FAB';
 
-const Profile = ({ history, following, setFollowing }) => {
-  const { username } = useParams();
+const Following = ({ history, following }) => {
   const { loading, error, data: { getPosts: posts } = {} } = useQuery(
     FETCH_POSTS_QUERY
   );
@@ -22,23 +21,18 @@ const Profile = ({ history, following, setFollowing }) => {
         <Spinner size="lg" />
       </Center>
     );
-
-  const filteredPosts = posts.filter(post => post.username === username);
-
+  const filteredPosts = posts.filter(post => following.includes(post.username));
   return (
     <>
       <ResponsiveMasonry
         style={{ width: '100%', marginBottom: '80px' }}
-        columnsCountBreakPoints={{ 350: 1, 850: 2, 1100: 3 }}
+        columnsCountBreakPoints={{ 350: 1, 800: 2, 1100: 3 }}
       >
         <Masonry gutter="20px">
-          <SocialProfileSimple
-            username={username}
-            following={following}
-            setFollowing={setFollowing}
-          />
           {filteredPosts &&
-            filteredPosts.map(post => <PostCard key={post.id} post={post} />)}
+            filteredPosts.map(post => (
+              <PostCard key={post.id} post={post} history={history} />
+            ))}
         </Masonry>
       </ResponsiveMasonry>
       <FAB history={history} />
@@ -46,4 +40,4 @@ const Profile = ({ history, following, setFollowing }) => {
   );
 };
 
-export default Profile;
+export default Following;

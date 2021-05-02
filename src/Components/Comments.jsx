@@ -44,7 +44,7 @@ const Comments = ({ post }) => {
       </Flex>
       <VStack w="full">
         {post.comments.map(comment => (
-          <Comment comment={comment} key={comment.id} />
+          <Comment postId={post.id} comment={comment} key={comment.id} />
         ))}
       </VStack>
     </>

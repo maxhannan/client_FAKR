@@ -4,6 +4,7 @@ export const myContext = createContext({});
 
 const Context = ({ children }) => {
   const [userObj, setUserObj] = useState();
+  console.log(userObj);
   useEffect(() => {
     axios
       .get('http://localhost:4000/auth/getuser/', { withCredentials: true })

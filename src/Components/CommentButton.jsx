@@ -17,20 +17,18 @@ const CommentButton = ({
       setCommented(true);
     } else setCommented(false);
   }, [user, comments]);
-  let userNames = [];
-  let addedUsers = [];
-  comments.forEach(comment => {
-    if (addedUsers.includes(comment.username)) {
-      return;
-    } else {
-      addedUsers.push(comment.username);
-      userNames.push({ user: comment.username, photo: comment.userPhoto });
+
+  // creates list of unique users for comment btn list
+  const uniqueUsername = Array.from(new Set(comments.map(c => c.username))).map(
+    username => {
+      return comments.find(c => c.username === username);
     }
-  });
+  );
 
   const navigate = () => {
     history.push(`/post/${id}`);
   };
+
   return (
     <ButtonGroup size="md" isAttached variant="outline">
       <IconButton
@@ -38,9 +36,9 @@ const CommentButton = ({
         aria-label="Add to friends"
         icon={
           commented ? (
-            <FaComments style={{ animation: 'appear 500ms ease' }} />
+            <FaComments animation="appear 500ms ease" />
           ) : (
-            <FaRegComments style={{ animation: 'disappear 500ms ease' }} />
+            <FaRegComments animation="disappear 500ms ease" />
           )
         }
       />
@@ -50,22 +48,17 @@ const CommentButton = ({
             {commentCount}
           </MenuButton>
           <MenuList>
-            {userNames.map(username => (
-              <MenuItem
-                fontSize="md"
-                minH="40px"
-                // as={RouterLink}
-                // to={`/profile/${like.username}`}
-              >
+            {uniqueUsername.map(user => (
+              <MenuItem fontSize="md" minH="40px">
                 <Image
                   boxSize="2rem"
                   borderRadius="full"
                   objectFit="cover"
-                  src={username.photo}
-                  alt={username}
+                  src={user.userPhoto}
+                  alt={user.username}
                   mr="12px"
                 />
-                <span>@{username.user}</span>
+                <span>@{user.username}</span>
               </MenuItem>
             ))}
           </MenuList>

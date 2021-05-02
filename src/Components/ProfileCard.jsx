@@ -12,8 +12,13 @@ import {
 } from '@chakra-ui/react';
 import { useContext } from 'react';
 import { myContext } from '../Context';
+import FollowButton from './FollowButton';
 
-export default function SocialProfileSimple({ username }) {
+export default function SocialProfileSimple({
+  username,
+  following,
+  setFollowing,
+}) {
   const bgColor = useColorModeValue('gray.50', 'gray.900');
   const textColor = useColorModeValue('gray.700', 'gray.400');
   const tagColor = useColorModeValue('gray.50', 'gray.800');
@@ -28,6 +33,7 @@ export default function SocialProfileSimple({ username }) {
   );
   if (error) console.error(error);
   if (loading) return <h3>loading...</h3>;
+  console.log(user);
   return (
     <Center>
       <Box w={'full'} bg={bgColor} rounded={'lg'} p={6} textAlign={'center'}>
@@ -73,7 +79,11 @@ export default function SocialProfileSimple({ username }) {
             #music
           </Badge>
         </Stack>
-
+        {username === userObj.username && (
+          <Button mt={4} w="full">
+            Edit Profile
+          </Button>
+        )}
         {username !== userObj.username && (
           <Stack mt={8} direction={'row'} spacing={4}>
             <Button
@@ -86,9 +96,11 @@ export default function SocialProfileSimple({ username }) {
             >
               Message
             </Button>
-            <Button flex={1} fontSize={'sm'}>
-              Follow
-            </Button>
+            <FollowButton
+              user={user}
+              following={following}
+              setFollowing={setFollowing}
+            />
           </Stack>
         )}
       </Box>
@@ -103,6 +115,11 @@ const GET_USER_BY_NAME = gql`
       displayName
       photos
       username
+      following {
+        displayName
+        photos
+        username
+      }
     }
   }
 `;
