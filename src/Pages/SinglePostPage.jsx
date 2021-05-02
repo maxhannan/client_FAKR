@@ -46,8 +46,6 @@ const SinglePostPage = () => {
     );
   }
 
-  if (post) console.log(post);
-
   const navigate = url => {
     window.open(normalizeUrl(url), '_blank');
   };

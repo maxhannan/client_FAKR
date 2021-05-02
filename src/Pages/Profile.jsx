@@ -23,7 +23,6 @@ const Profile = ({ history }) => {
       </Center>
     );
 
-  if (posts) console.log(posts);
   const filteredPosts = posts.filter(post => post.username === username);
 
   return (

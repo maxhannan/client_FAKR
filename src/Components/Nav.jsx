@@ -62,7 +62,6 @@ export default function Nav() {
       .get('http://localhost:4000/auth/logout', { withCredentials: true })
       .then(res => {
         if (res.data) {
-          console.log(res);
           window.location.href = '/';
         }
       });

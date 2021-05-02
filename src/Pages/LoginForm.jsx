@@ -33,7 +33,6 @@ const LoginForm = () => {
 
   const localLogin = async () => {
     const res = await authLogin(values.loginUsername, values.loginPassword);
-    console.log(res);
     if (res === 'success') {
       setError(false);
       setErrorMsg('');

@@ -1,9 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, ButtonGroup, IconButton } from '@chakra-ui/button';
 import { Image } from '@chakra-ui/image';
 import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/menu';
 import { useEffect, useState } from 'react';
 import { FaComments, FaRegComments } from 'react-icons/fa';
-import { Link as RouterLink } from 'react-router-dom';
 
 const CommentButton = ({
   history,
@@ -13,7 +13,6 @@ const CommentButton = ({
   const [commented, setCommented] = useState(false);
 
   useEffect(() => {
-    console.log({ id, commentCount, comments });
     if (user && comments.find(comment => comment.username === user.username)) {
       setCommented(true);
     } else setCommented(false);

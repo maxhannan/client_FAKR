@@ -22,8 +22,6 @@ const Feed = ({ history }) => {
       </Center>
     );
 
-  if (posts) console.log(posts);
-
   return (
     <>
       <ResponsiveMasonry

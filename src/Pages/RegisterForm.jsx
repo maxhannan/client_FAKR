@@ -57,12 +57,10 @@ const RegisterForm = () => {
       withCredentials: true,
       url: 'http://localhost:4000/auth/register',
     });
-    console.log(res);
     if (res.data === 'success') {
       await new Promise(r => setTimeout(r, 500));
       const loginRes = await authLogin(registerUsername, registerPassword);
 
-      console.log(loginRes);
       if (loginRes === 'success') {
         setLoading(false);
         window.location = '/feed';
@@ -79,11 +77,7 @@ const RegisterForm = () => {
   });
 
   return (
-    <Flex
-      minH={'92vh'}
-      justify={'center'}
-      bg={useColorModeValue('gray.50', 'gray.800')}
-    >
+    <Flex justify={'center'}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
           <Heading textAlign="center" fontSize={'4xl'}>
@@ -92,7 +86,7 @@ const RegisterForm = () => {
         </Stack>
         <Box
           rounded={'lg'}
-          bg={useColorModeValue('white', 'gray.700')}
+          bg={useColorModeValue('gray.50', 'gray.900')}
           boxShadow={'lg'}
           p={6}
         >

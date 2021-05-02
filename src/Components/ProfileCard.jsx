@@ -10,11 +10,14 @@ import {
   Badge,
   useColorModeValue,
 } from '@chakra-ui/react';
+import { useContext } from 'react';
+import { myContext } from '../Context';
 
 export default function SocialProfileSimple({ username }) {
   const bgColor = useColorModeValue('gray.50', 'gray.900');
   const textColor = useColorModeValue('gray.700', 'gray.400');
   const tagColor = useColorModeValue('gray.50', 'gray.800');
+  const userObj = useContext(myContext);
   const { loading, error, data: { getUserByName: user } = {} } = useQuery(
     GET_USER_BY_NAME,
     {
@@ -23,6 +26,7 @@ export default function SocialProfileSimple({ username }) {
       },
     }
   );
+  if (error) console.error(error);
   if (loading) return <h3>loading...</h3>;
   return (
     <Center>
@@ -70,21 +74,23 @@ export default function SocialProfileSimple({ username }) {
           </Badge>
         </Stack>
 
-        <Stack mt={8} direction={'row'} spacing={4}>
-          <Button
-            flex={1}
-            fontSize={'sm'}
-            variant="outline"
-            _focus={{
-              bg: 'gray.200',
-            }}
-          >
-            Message
-          </Button>
-          <Button flex={1} fontSize={'sm'}>
-            Follow
-          </Button>
-        </Stack>
+        {username !== userObj.username && (
+          <Stack mt={8} direction={'row'} spacing={4}>
+            <Button
+              flex={1}
+              fontSize={'sm'}
+              variant="outline"
+              _focus={{
+                bg: 'gray.200',
+              }}
+            >
+              Message
+            </Button>
+            <Button flex={1} fontSize={'sm'}>
+              Follow
+            </Button>
+          </Stack>
+        )}
       </Box>
     </Center>
   );

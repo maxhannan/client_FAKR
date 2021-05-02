@@ -8,8 +8,6 @@ import {
   Image,
   Avatar,
   useColorModeValue,
-  Button,
-  ButtonGroup,
   IconButton,
   HStack,
   Spinner,
@@ -17,7 +15,6 @@ import {
 import { formatDistance } from 'date-fns';
 import { Link as RouterLink } from 'react-router-dom';
 import { useContext, useState } from 'react';
-import { FaRegComments } from 'react-icons/fa';
 import { myContext } from '../Context';
 import LikeButton from './LikeButton';
 
