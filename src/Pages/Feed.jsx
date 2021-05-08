@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { FETCH_POSTS_QUERY } from '../util/GQLQueries';
-import { Spinner } from '@chakra-ui/react';
+import { Button, ButtonGroup, Spinner } from '@chakra-ui/react';
 import { Center } from '@chakra-ui/layout';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 
@@ -36,6 +36,11 @@ const Feed = ({ history }) => {
         </Masonry>
       </ResponsiveMasonry>
       <FAB history={history} />
+      <ButtonGroup size="sm" isAttached variant="outline">
+        <Button colorScheme="red">1</Button>
+        <Button>2</Button>
+        <Button>3</Button>
+      </ButtonGroup>
     </>
   );
 };
