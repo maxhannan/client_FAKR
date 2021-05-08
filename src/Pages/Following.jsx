@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { FETCH_POSTS_QUERY } from '../util/GQLQueries';
 import { Spinner } from '@chakra-ui/react';
-import { Center } from '@chakra-ui/layout';
+import { Center, Flex } from '@chakra-ui/layout';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 
 import PostCard from '../Components/PostCard';
@@ -9,6 +9,7 @@ import PostCard from '../Components/PostCard';
 import FAB from '../Components/FAB';
 
 const Following = ({ history, following }) => {
+  const followingUsers = following.map(follow => follow.username);
   const { loading, error, data: { getPosts: posts } = {} } = useQuery(
     FETCH_POSTS_QUERY
   );

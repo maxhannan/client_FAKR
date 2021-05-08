@@ -10,6 +10,7 @@ import FAB from '../Components/FAB';
 
 const Profile = ({ history, following, setFollowing }) => {
   const { username } = useParams();
+  console.log({ history });
   const { loading, error, data: { getPosts: posts } = {} } = useQuery(
     FETCH_POSTS_QUERY
   );
@@ -38,7 +39,9 @@ const Profile = ({ history, following, setFollowing }) => {
             setFollowing={setFollowing}
           />
           {filteredPosts &&
-            filteredPosts.map(post => <PostCard key={post.id} post={post} />)}
+            filteredPosts.map(post => (
+              <PostCard key={post.id} history={history} post={post} />
+            ))}
         </Masonry>
       </ResponsiveMasonry>
       <FAB history={history} />

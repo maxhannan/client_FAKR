@@ -26,6 +26,7 @@ import { GET_POST_BY_ID } from '../util/GQLQueries';
 const SinglePostPage = () => {
   const { postId } = useParams();
   const userObj = useContext(myContext);
+
   const [imageReady, setImageReady] = useState(false);
   const { loading, error, data: { getPost: post } = {} } = useQuery(
     GET_POST_BY_ID,

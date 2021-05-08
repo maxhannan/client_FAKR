@@ -5,7 +5,6 @@ import { Center } from '@chakra-ui/layout';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 
 import PostCard from '../Components/PostCard';
-
 import FAB from '../Components/FAB';
 
 const Feed = ({ history }) => {
