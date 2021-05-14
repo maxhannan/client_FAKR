@@ -4,7 +4,7 @@ import { Button } from '@chakra-ui/button';
 import { Flex } from '@chakra-ui/layout';
 import { chakra, useColorModeValue } from '@chakra-ui/system';
 import { formatDistance } from 'date-fns';
-import gql from 'graphql-tag';
+import { DELETE_COMMENT_MUTATION } from '../util/GQLQueries';
 import { useContext } from 'react';
 import { myContext } from '../Context';
 
@@ -68,18 +68,3 @@ const Comment = ({ postId, comment }) => {
 };
 
 export default Comment;
-
-const DELETE_COMMENT_MUTATION = gql`
-  mutation deleteComment($postId: ID!, $commentId: ID!) {
-    deleteComment(postId: $postId, commentId: $commentId) {
-      id
-      comments {
-        id
-        createdAt
-        username
-        body
-      }
-      commentCount
-    }
-  }
-`;

@@ -1,8 +1,7 @@
-import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
 import { useRef } from 'react';
 
-import { FETCH_POSTS_QUERY } from '../util/GQLQueries';
+import { DELETE_POST_MUTATION, FETCH_POSTS_QUERY } from '../util/GQLQueries';
 import { Button, IconButton } from '@chakra-ui/button';
 import { BiTrash } from 'react-icons/bi';
 import {
@@ -19,8 +18,6 @@ import {
 const DeleteButton = ({ postId, commentId, callback }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
-
-  // const mutation = commentId ? DELETE_COMMENT_MUTATION : DELETE_POST_MUTATION;
 
   const [deletePost] = useMutation(DELETE_POST_MUTATION, {
     update(proxy) {
@@ -80,12 +77,4 @@ const DeleteButton = ({ postId, commentId, callback }) => {
   );
 };
 
-const DELETE_POST_MUTATION = gql`
-  mutation deletePost($postId: ID!) {
-    deletePost(postId: $postId)
-  }
-`;
-
-// const DELETE_COMMENT_MUTATION = gql`
-// `;
 export default DeleteButton;

@@ -191,3 +191,55 @@ export const GET_CURRENT_USER = gql`
     }
   }
 `;
+
+export const FOLLOW_MUTATION = gql`
+  mutation followUser($username: String!) {
+    followUser(username: $username) {
+      displayName
+      photos
+      username
+      following {
+        displayName
+        photos
+        username
+      }
+    }
+  }
+`;
+
+export const DELETE_POST_MUTATION = gql`
+  mutation deletePost($postId: ID!) {
+    deletePost(postId: $postId)
+  }
+`;
+
+export const DELETE_COMMENT_MUTATION = gql`
+  mutation deleteComment($postId: ID!, $commentId: ID!) {
+    deleteComment(postId: $postId, commentId: $commentId) {
+      id
+      comments {
+        id
+        createdAt
+        username
+        body
+      }
+      commentCount
+    }
+  }
+`;
+
+export const GET_USER_BY_NAME = gql`
+  query getUserByName($username: String!) {
+    getUserByName(username: $username) {
+      id
+      displayName
+      photos
+      username
+      following {
+        displayName
+        photos
+        username
+      }
+    }
+  }
+`;

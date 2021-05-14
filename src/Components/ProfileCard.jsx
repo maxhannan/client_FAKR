@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import {
   Heading,
   Avatar,
@@ -12,13 +12,10 @@ import {
 } from '@chakra-ui/react';
 import { useContext } from 'react';
 import { myContext } from '../Context';
+import { GET_USER_BY_NAME } from '../util/GQLQueries';
 import FollowButton from './FollowButton';
 
-export default function SocialProfileSimple({
-  username,
-  following,
-  setFollowing,
-}) {
+export default function SocialProfileSimple({ username }) {
   const bgColor = useColorModeValue('gray.50', 'gray.900');
   const textColor = useColorModeValue('gray.700', 'gray.400');
   const tagColor = useColorModeValue('gray.50', 'gray.800');
@@ -104,19 +101,3 @@ export default function SocialProfileSimple({
     </Center>
   );
 }
-
-const GET_USER_BY_NAME = gql`
-  query getUserByName($username: String!) {
-    getUserByName(username: $username) {
-      id
-      displayName
-      photos
-      username
-      following {
-        displayName
-        photos
-        username
-      }
-    }
-  }
-`;

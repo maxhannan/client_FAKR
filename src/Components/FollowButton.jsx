@@ -1,9 +1,8 @@
 import { useMutation } from '@apollo/client';
 import { Button } from '@chakra-ui/button';
-import gql from 'graphql-tag';
 import { useContext } from 'react';
 import { myContext } from '../Context';
-import { GET_CURRENT_USER } from '../util/GQLQueries';
+import { FOLLOW_MUTATION, GET_CURRENT_USER } from '../util/GQLQueries';
 
 const FollowButton = ({ user }) => {
   const userObj = useContext(myContext);
@@ -36,18 +35,3 @@ const FollowButton = ({ user }) => {
 };
 
 export default FollowButton;
-
-const FOLLOW_MUTATION = gql`
-  mutation followUser($username: String!) {
-    followUser(username: $username) {
-      displayName
-      photos
-      username
-      following {
-        displayName
-        photos
-        username
-      }
-    }
-  }
-`;
