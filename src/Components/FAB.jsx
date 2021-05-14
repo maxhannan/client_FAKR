@@ -1,8 +1,10 @@
 import { Button } from '@chakra-ui/button';
 import { Circle } from '@chakra-ui/layout';
 import { RiQuillPenLine } from 'react-icons/ri';
+import { useHistory } from 'react-router-dom';
 
-const FAB = ({ history }) => {
+const FAB = () => {
+  const history = useHistory();
   return (
     <Circle
       position="fixed"

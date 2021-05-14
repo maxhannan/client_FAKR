@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Box, ChakraProvider, Container } from '@chakra-ui/react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { myContext } from './Context';
@@ -15,13 +15,6 @@ import ScrollToTop from './Components/ScrollToTop';
 import Following from './Pages/Following';
 function App() {
   const userObj = useContext(myContext);
-  const [following, setFollowing] = useState([]);
-
-  useEffect(() => {
-    if (userObj) {
-      setFollowing(userObj.following.map(follow => follow.username));
-    }
-  }, [userObj]);
 
   return (
     <ChakraProvider theme={theme}>
@@ -47,7 +40,7 @@ function App() {
           {userObj ? <Route exact path="/feed" component={Feed} /> : null}
           {userObj ? (
             <Route exact path="/following">
-              <Following following={following} />
+              <Following />
             </Route>
           ) : null}
           {userObj ? (
@@ -57,7 +50,7 @@ function App() {
           )}
           {userObj ? (
             <Route exact path="/profile/:username">
-              <Profile following={following} setFollowing={setFollowing} />
+              <Profile />
             </Route>
           ) : null}
           <Route exact path="/post/:postId" component={SinglePostPage} />

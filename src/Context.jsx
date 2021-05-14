@@ -1,17 +1,11 @@
-import { createContext, useEffect, useState } from 'react';
-import axios from 'axios';
+import { createContext } from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/client';
 export const myContext = createContext({});
 
 const Context = ({ children }) => {
-  const [userObj, setUserObj] = useState();
-  console.log(userObj);
+  const { data: { getCurrentUser: user } = {} } = useQuery(GET_CURRENT_USER);
 
-  const { loading, error, data: { getCurrentUser: user } = {} } = useQuery(
-    GET_CURRENT_USER
-  );
-  console.log({ user });
   return <myContext.Provider value={user}>{children}</myContext.Provider>;
 };
 

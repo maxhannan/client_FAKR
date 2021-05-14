@@ -21,7 +21,7 @@ import LikeButton from './LikeButton';
 import DeleteButton from './DeleteButton';
 import CommentButton from './CommentButton';
 
-export default function PostCard({ history, post }) {
+export default function PostCard({ post }) {
   const [imageReady, setimageReady] = useState(false);
   const userObj = useContext(myContext);
 
@@ -99,7 +99,7 @@ export default function PostCard({ history, post }) {
           >
             <HStack>
               <LikeButton user={userObj} post={post} />
-              <CommentButton history={history} user={userObj} post={post} />
+              <CommentButton user={userObj} post={post} />
             </HStack>
             <HStack>
               {userObj.username === post.username && (

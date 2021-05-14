@@ -23,17 +23,18 @@ export default function SocialProfileSimple({
   const textColor = useColorModeValue('gray.700', 'gray.400');
   const tagColor = useColorModeValue('gray.50', 'gray.800');
   const userObj = useContext(myContext);
-  const { loading, error, data: { getUserByName: user } = {} } = useQuery(
-    GET_USER_BY_NAME,
-    {
-      variables: {
-        username,
-      },
-    }
-  );
+  const {
+    loading,
+    error,
+    data: { getUserByName: user } = {},
+  } = useQuery(GET_USER_BY_NAME, {
+    variables: {
+      username,
+    },
+  });
   if (error) console.error(error);
   if (loading) return <h3>loading...</h3>;
-  console.log(user);
+
   return (
     <Center>
       <Box w={'full'} bg={bgColor} rounded={'lg'} p={6} textAlign={'center'}>
@@ -96,11 +97,7 @@ export default function SocialProfileSimple({
             >
               Message
             </Button>
-            <FollowButton
-              user={user}
-              following={following}
-              setFollowing={setFollowing}
-            />
+            <FollowButton user={user} />
           </Stack>
         )}
       </Box>

@@ -1,18 +1,19 @@
 import { useQuery } from '@apollo/client';
 import { FETCH_POSTS_QUERY } from '../util/GQLQueries';
 import { Spinner } from '@chakra-ui/react';
-import { Center, Flex } from '@chakra-ui/layout';
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
-
+import { Center } from '@chakra-ui/layout';
 import PostCard from '../Components/PostCard';
+import PostsFeed from '../Components/PostsFeed';
+import { useContext } from 'react';
+import { myContext } from '../Context';
 
-import FAB from '../Components/FAB';
-
-const Following = ({ history, following }) => {
-  const followingUsers = following.map(follow => follow.username);
-  const { loading, error, data: { getPosts: posts } = {} } = useQuery(
-    FETCH_POSTS_QUERY
-  );
+const Following = () => {
+  const userObj = useContext(myContext);
+  const {
+    loading,
+    error,
+    data: { getPosts: posts } = {},
+  } = useQuery(FETCH_POSTS_QUERY);
 
   if (error) return <p>{error}</p>;
 
@@ -22,22 +23,14 @@ const Following = ({ history, following }) => {
         <Spinner size="lg" />
       </Center>
     );
-  const filteredPosts = posts.filter(post => following.includes(post.username));
+  const filteredPosts = posts.filter(post =>
+    userObj.following.map(follow => follow.username).includes(post.username)
+  );
   return (
-    <>
-      <ResponsiveMasonry
-        style={{ width: '100%', marginBottom: '80px' }}
-        columnsCountBreakPoints={{ 350: 1, 800: 2, 1100: 3 }}
-      >
-        <Masonry gutter="20px">
-          {filteredPosts &&
-            filteredPosts.map(post => (
-              <PostCard key={post.id} post={post} history={history} />
-            ))}
-        </Masonry>
-      </ResponsiveMasonry>
-      <FAB history={history} />
-    </>
+    <PostsFeed>
+      {filteredPosts &&
+        filteredPosts.map(post => <PostCard key={post.id} post={post} />)}
+    </PostsFeed>
   );
 };
 

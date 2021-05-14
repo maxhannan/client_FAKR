@@ -170,3 +170,24 @@ export const GET_POST_BY_ID = gql`
     }
   }
 `;
+
+export const GET_CURRENT_USER = gql`
+  query getCurrentUser {
+    getCurrentUser {
+      id
+      displayName
+      photos
+      username
+      followers {
+        displayName
+        photos
+        username
+      }
+      following {
+        displayName
+        photos
+        username
+      }
+    }
+  }
+`;

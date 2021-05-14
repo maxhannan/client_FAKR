@@ -4,12 +4,10 @@ import { Image } from '@chakra-ui/image';
 import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/menu';
 import { useEffect, useState } from 'react';
 import { FaComments, FaRegComments } from 'react-icons/fa';
+import { useHistory } from 'react-router-dom';
 
-const CommentButton = ({
-  history,
-  user,
-  post: { id, commentCount, comments },
-}) => {
+const CommentButton = ({ user, post: { id, commentCount, comments } }) => {
+  const history = useHistory();
   const [commented, setCommented] = useState(false);
 
   useEffect(() => {
