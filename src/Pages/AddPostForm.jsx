@@ -15,10 +15,10 @@ import { Link as RouterLink } from 'react-router-dom';
 import FileUploadButton from '../Components/FileUploadButton';
 import { FETCH_POSTS_QUERY, CREATE_POST_MUTATION } from '../util/GQLQueries';
 import { useForm } from '../util/useForm';
-
-const AddPostForm = ({ history }) => {
+import { useHistory } from 'react-router-dom';
+const AddPostForm = () => {
   const [fileURL, setFileURL] = useState('');
-
+  const history = useHistory();
   const handleSubmit = () => {
     createPostCB();
     if (error) console.log(error);

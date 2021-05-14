@@ -15,7 +15,7 @@ export default function Homepage() {
             fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
             lineHeight={'110%'}
           >
-            Fakr <br />
+            TBDeveloped <br />
             <Text as={'span'} fontSize="" color={'blue.400'}>
               Find your audience
             </Text>

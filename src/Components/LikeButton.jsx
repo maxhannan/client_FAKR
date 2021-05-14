@@ -17,7 +17,7 @@ const LikeButton = ({ user, post: { id, likeCount, likes } }) => {
     } else setLiked(false);
   }, [user, likes]);
 
-  const [likePost] = useMutation(LIKE_POST_MUTATION, {
+  const [likePost, { loading }] = useMutation(LIKE_POST_MUTATION, {
     variables: { postId: id },
   });
 
@@ -26,6 +26,7 @@ const LikeButton = ({ user, post: { id, likeCount, likes } }) => {
       <IconButton
         aria-label="Add to friends"
         onClick={likePost}
+        isLoading={loading}
         icon={
           liked ? (
             <BsHeartFill

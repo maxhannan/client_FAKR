@@ -15,7 +15,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 
-const DeleteButton = ({ postId, commentId, callback }) => {
+const DeleteButton = ({ postId, callback }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
 

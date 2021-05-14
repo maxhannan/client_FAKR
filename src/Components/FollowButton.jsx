@@ -24,12 +24,18 @@ const FollowButton = ({ user }) => {
       });
     },
   });
-
+  const isFollowing = userObj.following
+    .map(follow => follow.username)
+    .includes(user.username);
   return (
-    <Button flex={1} fontSize={'sm'} onClick={followUser} isLoading={loading}>
-      {userObj.following.map(follow => follow.username).includes(user.username)
-        ? 'Unfollow'
-        : 'Follow'}
+    <Button
+      flex={1}
+      fontSize={'sm'}
+      onClick={followUser}
+      isLoading={loading}
+      colorScheme={isFollowing ? 'red' : 'green'}
+    >
+      {isFollowing ? 'Unfollow' : 'Follow'}
     </Button>
   );
 };
