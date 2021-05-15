@@ -82,6 +82,28 @@ export default function SocialProfileSimple({ username }) {
             Edit Profile
           </Button>
         )}
+        <Stack mt={8} direction={'row'} spacing={4}>
+          <Button
+            flex={1}
+            fontSize={'sm'}
+            variant="outline"
+            _focus={{
+              bg: 'gray.200',
+            }}
+          >
+            Following {user.following.length}
+          </Button>
+          <Button
+            flex={1}
+            fontSize={'sm'}
+            variant="outline"
+            _focus={{
+              bg: 'gray.200',
+            }}
+          >
+            Message
+          </Button>
+        </Stack>
         {username !== userObj.username && (
           <Stack mt={8} direction={'row'} spacing={4}>
             <Button

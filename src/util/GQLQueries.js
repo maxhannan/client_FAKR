@@ -235,6 +235,11 @@ export const GET_USER_BY_NAME = gql`
       displayName
       photos
       username
+      followers {
+        displayName
+        photos
+        username
+      }
       following {
         displayName
         photos
