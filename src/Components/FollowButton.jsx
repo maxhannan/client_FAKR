@@ -25,8 +25,8 @@ const FollowButton = ({ user, refetch }) => {
     },
   });
 
-  const followCB = () => {
-    followUser();
+  const followCB = async () => {
+    await followUser();
     refetch();
   };
   const isFollowing = userObj.following
