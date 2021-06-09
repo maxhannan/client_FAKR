@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { myContext } from '../Context';
 import { FOLLOW_MUTATION, GET_CURRENT_USER } from '../util/GQLQueries';
 
-const FollowButton = ({ user }) => {
+const FollowButton = ({ user, refetch }) => {
   const userObj = useContext(myContext);
 
   const [followUser, { loading }] = useMutation(FOLLOW_MUTATION, {
@@ -24,6 +24,11 @@ const FollowButton = ({ user }) => {
       });
     },
   });
+
+  const followCB = () => {
+    followUser();
+    refetch();
+  };
   const isFollowing = userObj.following
     .map(follow => follow.username)
     .includes(user.username);
@@ -31,7 +36,7 @@ const FollowButton = ({ user }) => {
     <Button
       flex={1}
       fontSize={'sm'}
-      onClick={followUser}
+      onClick={followCB}
       isLoading={loading}
       colorScheme={isFollowing ? 'red' : 'green'}
     >

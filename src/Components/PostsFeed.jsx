@@ -1,4 +1,3 @@
-import { Button, ButtonGroup } from '@chakra-ui/button';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import FAB from './FAB';
 
@@ -12,11 +11,12 @@ const PostsFeed = ({ children }) => {
         <Masonry gutter="20px">{children}</Masonry>
       </ResponsiveMasonry>
       <FAB />
-      <ButtonGroup size="sm" isAttached variant="outline">
+      {/* Pagination Buttons TODO  */}
+      {/* <ButtonGroup size="sm" isAttached variant="outline">
         <Button colorScheme="red">1</Button>
         <Button>2</Button>
         <Button>3</Button>
-      </ButtonGroup>
+      </ButtonGroup> */}
     </>
   );
 };

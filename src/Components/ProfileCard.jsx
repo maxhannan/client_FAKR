@@ -9,11 +9,18 @@ import {
   Button,
   Badge,
   useColorModeValue,
+  ButtonGroup,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Image,
 } from '@chakra-ui/react';
 import { useContext } from 'react';
 import { myContext } from '../Context';
 import { GET_USER_BY_NAME } from '../util/GQLQueries';
 import FollowButton from './FollowButton';
+import { Link as RouterLink } from 'react-router-dom';
 
 export default function SocialProfileSimple({ username }) {
   const bgColor = useColorModeValue('gray.50', 'gray.900');
@@ -23,6 +30,7 @@ export default function SocialProfileSimple({ username }) {
   const {
     loading,
     error,
+    refetch,
     data: { getUserByName: user } = {},
   } = useQuery(GET_USER_BY_NAME, {
     variables: {
@@ -83,26 +91,70 @@ export default function SocialProfileSimple({ username }) {
           </Button>
         )}
         <Stack mt={8} direction={'row'} spacing={4}>
-          <Button
-            flex={1}
-            fontSize={'sm'}
-            variant="outline"
-            _focus={{
-              bg: 'gray.200',
-            }}
-          >
-            Following {user.following.length}
-          </Button>
-          <Button
-            flex={1}
-            fontSize={'sm'}
-            variant="outline"
-            _focus={{
-              bg: 'gray.200',
-            }}
-          >
-            Message
-          </Button>
+          <ButtonGroup size="md" isAttached variant="outline">
+            <Button>Following</Button>
+            {user.following.length > 0 ? (
+              <Menu>
+                <MenuButton as={Button} mr="-px">
+                  {user.following.length}
+                </MenuButton>
+                <MenuList>
+                  {user.following.map(follow => (
+                    <MenuItem
+                      fontSize="md"
+                      minH="40px"
+                      as={RouterLink}
+                      to={`/profile/${follow.username}`}
+                    >
+                      <Image
+                        boxSize="2rem"
+                        borderRadius="full"
+                        objectFit="cover"
+                        src={follow.photos}
+                        alt={follow.username}
+                        mr="12px"
+                      />
+                      <span>@{follow.username}</span>
+                    </MenuItem>
+                  ))}
+                </MenuList>
+              </Menu>
+            ) : (
+              <Button mr="-px">{user.following.length}</Button>
+            )}
+          </ButtonGroup>
+          <ButtonGroup size="md" flex={1} isAttached variant="outline">
+            <Button isLoading={loading}>Followers</Button>
+            {user.followers.length > 0 ? (
+              <Menu>
+                <MenuButton as={Button} mr="-px">
+                  {user.followers.length}
+                </MenuButton>
+                <MenuList>
+                  {user.followers.map(follow => (
+                    <MenuItem
+                      fontSize="md"
+                      minH="40px"
+                      as={RouterLink}
+                      to={`/profile/${follow.username}`}
+                    >
+                      <Image
+                        boxSize="2rem"
+                        borderRadius="full"
+                        objectFit="cover"
+                        src={follow.photos}
+                        alt={follow.username}
+                        mr="12px"
+                      />
+                      <span>@{follow.username}</span>
+                    </MenuItem>
+                  ))}
+                </MenuList>
+              </Menu>
+            ) : (
+              <Button mr="-px">{user.followers.length}</Button>
+            )}
+          </ButtonGroup>
         </Stack>
         {username !== userObj.username && (
           <Stack mt={8} direction={'row'} spacing={4}>
@@ -116,7 +168,7 @@ export default function SocialProfileSimple({ username }) {
             >
               Message
             </Button>
-            <FollowButton user={user} />
+            <FollowButton user={user} refetch={refetch} />
           </Stack>
         )}
       </Box>
