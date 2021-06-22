@@ -20,7 +20,7 @@ import { useContext } from 'react';
 import { myContext } from '../Context';
 import { GET_USER_BY_NAME } from '../util/GQLQueries';
 import FollowButton from './FollowButton';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link, Link as RouterLink } from 'react-router-dom';
 
 export default function SocialProfileSimple({ username }) {
   const bgColor = useColorModeValue('gray.50', 'gray.900');
@@ -90,7 +90,7 @@ export default function SocialProfileSimple({ username }) {
             Edit Profile
           </Button>
         )}
-        <Stack mt={8} direction={'row'} spacing={4}>
+        {/* <Stack mt={8} direction={'row'} spacing={4} align="center">
           <ButtonGroup size="md" isAttached variant="outline">
             <Button>Following</Button>
             {user.following.length > 0 ? (
@@ -155,6 +155,10 @@ export default function SocialProfileSimple({ username }) {
               <Button mr="-px">{user.followers.length}</Button>
             )}
           </ButtonGroup>
+        </Stack> */}
+        <Stack mt={8} direction={'row'} spacing={4}>
+          <Link>Chakra UI</Link>
+          <Link>Chakra UI</Link>
         </Stack>
         {username !== userObj.username && (
           <Stack mt={8} direction={'row'} spacing={4}>
